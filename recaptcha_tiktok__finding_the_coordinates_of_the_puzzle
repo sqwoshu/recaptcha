@@ -40,3 +40,9 @@ if len(contours) != 0:
 cv2.imwrite(f'test_final.png',img)
 
 print(x_tt[0])
+
+
+
+полезные ссылки
+https://titanwolf.org/Network/Articles/Article?AID=aaf8293c-c067-4c91-af10-9d463c40069f
+https://www.cyberforum.ru/python-graphics/thread2797203.html
