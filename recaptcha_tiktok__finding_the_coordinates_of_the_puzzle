@@ -1,5 +1,13 @@
 import cv2
 
+# картинка
+img = browser.find_element(By.XPATH, '//*[@id="captcha-verify-image"]').get_attribute('src')
+    response = requests.get(img)
+    if response.status_code == 200:
+        with open('tiktok_captcha.jpeg', 'wb') as imgfile:
+            imgfile.write(response.content)
+            
+            
 img = cv2.imread("tiktok_captcha.jpeg")
 
 imgray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
