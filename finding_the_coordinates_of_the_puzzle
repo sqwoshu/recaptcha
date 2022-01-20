@@ -28,3 +28,5 @@ if len(contours) != 0:
                     print(" x:", x, "y", y," w:",w,"h:",h)
 
 cv2.imwrite(f'test_final.png',img)
+
+print(x_tt[0])
