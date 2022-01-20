@@ -1,0 +1,30 @@
+img = cv2.imread("tiktok_captcha.jpeg")
+
+    imgray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+    ret, thresh = cv2.threshold(imgray, 120, 255, 0) # 120 255 0
+    cv2.imwrite('test.png', thresh)
+
+
+    img = cv2.imread("test.png")
+    hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+
+    lower_range = np.array([0, 0, 0])
+    upper_range = np.array([0, 0, 0])
+
+    mask = cv2.inRange(hsv, lower_range, upper_range)
+
+    contours, hierarchy = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+
+    x_tt = []
+    if len(contours) != 0:
+        for contour in contours:
+            if cv2.contourArea((contour)) > 3000:
+                x, y, w, h = cv2.boundingRect(contour)
+                if x != 0 and x != 1 and y != 0 and y != 1 and x >= 10:
+                    if ( (max(w,h) - min(w,h) <= 8) or (w == h) ) and max(w,h) >= 70:
+                        cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255,), 2)
+                        x_tt.append(x)
+                        print(" x:", x, "y", y," w:",w,"h:",h)
+
+    cv2.imwrite(f'test_final.png',img)
